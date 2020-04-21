@@ -1,22 +1,15 @@
-import { CrudStamp } from './crudStamp';
+import { CrudStamp } from './revision/crud_stamp';
+import StampedObject from './revision/stamped_object';
 
-export class Site {
+export class Site implements StampedObject {
     url: string;
     name?: string;
 
-    static _int: number = 0;
-
     constructor(url: string) {
         this.url = url;
-
-        this.d = {} as CrudStamp;
-        this.d.c = new Date().toISOString();
-        this.d.u = this.d.c;
-        this.d.d = undefined;
-        this.d.i = ++Site._int;
     }
-    // dateinfo: Date.prototype.toISOString() data
-    d: CrudStamp;
+
+    d: CrudStamp = new CrudStamp();
 
     isSameItem(site: Site) {
         return (this.d.i === site.d.i)
@@ -35,7 +28,7 @@ export class Site {
         var newSite = Object.assign(new Site(''), site);
         newSite.d = Object.assign(newSite.d, (<any>site).d);
 
-        Site._int -= 1;
+        CrudStamp._i -= 1; // TODO: remove
 
         return newSite;
     }

@@ -1,5 +1,5 @@
 import { MappedList, LimitedMappedList } from './mappedList';
-import { CrudStamp } from './crudStamp';
+import { CrudStamp } from './revision/crud_stamp';
 import { Site } from './site';
 
 export class SiteState {
